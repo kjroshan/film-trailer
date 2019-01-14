@@ -48,8 +48,8 @@ class ViaplayAdapter {
 
     async getMovieId(movieInfoUrl) {
         let movieId = await this.redisClient.getAsync(movieInfoUrl)
-            .catch((err) => {
-                this.logger.log('error', err);
+            .catch(() => {
+                this.logger.log('info', `Redis could not find the value in cache for the key: ${movieInfoUrl}`);
             });
 
         if (movieId) {

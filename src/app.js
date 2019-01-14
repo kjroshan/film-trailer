@@ -3,8 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 
-// import redisClient from './redis';
-import redisClient from './devcache';
+import createRedisStore from './redis';
 
 import logger from './logger';
 import registerRoutes from './api/routes';
@@ -15,7 +14,7 @@ import createViaplayAdater from './assets/viaplay-adapter';
 import createmovieDbAdapter from './assets/moviedb-adapter';
 
 const app = express();
-
+const redisClient = createRedisStore(logger);
 const serviceClient = httpClient({ logger, redisClient });
 const viaplayAdapter = createViaplayAdater({ logger, serviceClient, redisClient });
 const movieDbAdapter = createmovieDbAdapter({

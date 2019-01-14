@@ -37,8 +37,8 @@ class MovieDbAdapter {
 
     async getVideoClipId(imdbId) {
         let videoKey = await this.redisClient.getAsync(`IMDBID_FOR_MOVIE_${imdbId}`)
-            .catch((err) => {
-                this.logger.log('error', err);
+            .catch(() => {
+                this.logger.log('info', `Redis could not find the value in cache for the key: IMDBID_FOR_MOVIE_${imdbId}`);
             });
 
         if (videoKey) {

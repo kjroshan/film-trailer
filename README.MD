@@ -21,7 +21,8 @@ docker run --name trailerapi -p 3000:3000 image-name/tag -- To create docker con
 ## Using the API
 
 * You can try the API in Postman or browser or integrate it in an application
--- API :  **http://localhost:3000/trailer?url=https://content.viaplay.se/pc-se/film/rysare**
+-- API :
+**http://localhost:3000/trailer?url=https://content.viaplay.se/pc-se/film/rysare**
 -- Response Schema:
 {
 &nbsp;&nbsp;&nbsp;&nbsp;"trailer": {
@@ -39,35 +40,13 @@ A react based UI application which integrates this API available on **https://gi
 ## Building docker containers for for API and UI Interface
 
 * Download or clone both the **film-trailer** (API) and **trailer-ui** (User Interface) repos into a local folder.
- * Create a file named **docker-composer-yml** inside the folder containing both the applications with the following code or copy the file from root folder of the film-trailer repo into the folder outside.
-```yaml
-version:  "3"
-services:
-  ui-app:
-    image:  name/tag
-    container_name:  ui-app
-    restart:  always
-    environment:
-      - REDIS_ENV=false
-      - NODE_TLS_REJECT_UNAUTHORIZED=0
-    ports:
-      - 8080:8080
-  api-app:
-    image:  name/tag
-    container_name:  api-app
-    restart:  always
-    environment:
-      - NODE_TLS_REJECT_UNAUTHORIZED=0
-    ports:
-      - 3000:3000
+* Copy the file named **docker-composer-yml** from **root folder of the film-trailer** repo to **the folder containing both the applications**.
+
 ```
-```
----
 **NOTE**
 Maintain the indentation as given in the yaml file
 Replace the name/tag using preffered name and tag.
 Ex for name/tag:  roshan/film-trailer:latest, roshan/trailer-ui:latest
----
 ```
 
 * Create a file named **_.sh** inside the folder containing both the applications with the following code or copy the file from root folder of the film-trailer repo into the folder outside.
@@ -90,11 +69,9 @@ pwd
 docker-compose up -d
 ```
 ```
----
 **NOTE**
 Replace the name/tag using preffered name and tag.
 Ex for name/tag:  roshan/film-trailer:latest, roshan/trailer-ui:latest
----
 ```
 * Your folder structure should like the following
 ```
@@ -106,10 +83,8 @@ Ex for name/tag:  roshan/film-trailer:latest, roshan/trailer-ui:latest
 ```
 * execute the command **./_.sh**
 ```
----
 **NOTE**
 If you are getting permission denied error run **sudo chmod 775 _.sh** and try again
----
 ```
 
 ## Prerequisites
@@ -141,10 +116,6 @@ Adapters are created for http service requests, moviedb as a Youtube id fetching
 Routes are created using route creator login where incase of new routes we just to provide it with the path the implementation function. This will help us with a central place to change the route creation logic and  passing settings and environment variables common across the routes. Routes are implemented in **/src/routes** folder.
 
 ###  Redis Configuration
-If you are planning to use docker-compose then switch the redis client inside ./src/app.js to following
-```js
-import redisClient from './redis';
-// import redisClient from './devcache';
-```
+Need to set environment variables in docker-compose for REDIS_HOST, REDIS_PORT and REDIS_PASSWORD if you are not using localhost and default port.
 
 
