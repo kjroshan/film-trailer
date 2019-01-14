@@ -1,4 +1,5 @@
 import bluebird from 'bluebird';
+import size from 'lodash/size';
 
 class CacheForDev {
     constructor(logger) {
@@ -19,7 +20,7 @@ class CacheForDev {
     setAsync(key, value) {
         this.logger.log('warn', 'Redis not connected!, You are using your local machine memory for caching');
 
-        if (Object.keys(this.cache).length > 1000) this.cache = {};
+        if (size(this.cache) > 1000) this.cache = {};
 
         this.cache[key] = value;
         return bluebird.resolve(this.cache[key]);
