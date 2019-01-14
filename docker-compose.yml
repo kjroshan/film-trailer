@@ -1,18 +1,20 @@
 version: "3"
 services:
-  ui-app:
+  uiapp:
     image: roshan/trailer-ui:latest
-    container_name: ui-app
+    container_name: uiapp
     restart: always
     environment:
       - REDIS_ENV=false
       - NODE_TLS_REJECT_UNAUTHORIZED=0
     ports:
       - 8080:8080
+    links:
+      - apiapp
 
-  api-app:
+  apiapp:
     image: roshan/film-trailer:latest
-    container_name: api-app
+    container_name: apiapp
     restart: always
     environment:
       - NODE_TLS_REJECT_UNAUTHORIZED=0
