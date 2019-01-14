@@ -34,7 +34,7 @@ docker run --name trailerapi -p 3000:3000 image-name/tag -- To create docker con
 * To get more sample movie id visit **https://content.viaplay.se/pc-se/film** and search for **publicPath**
 
 * UI Interface for the API
-A react based UI application which integrates this API available on **https://github.com/sapegin/jest-cheat-sheet/blob/master/Readme.md**
+A react based UI application which integrates this API available on **https://github.com/kjroshan/trailer-ui**
 
 ## Building docker containers for for API and UI Interface
 
