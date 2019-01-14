@@ -1,0 +1,17 @@
+{
+    "presets": [["env"]],
+    "plugins": [
+        "transform-runtime"
+    ],
+    "env": {
+        "testing": {
+            "presets":[
+                ["env", { "modules": false }],
+            ],
+            "plugins": [
+                "transform-es2015-modules-commonjs",
+                "transform-runtime"
+            ]
+        }
+    }
+}

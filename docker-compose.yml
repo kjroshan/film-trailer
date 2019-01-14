@@ -1,0 +1,25 @@
+version: "3"
+services:
+  ui-app:
+    image: roshan/trailer-ui:latest
+    container_name: ui-app
+    restart: always
+    environment:
+      - REDIS_ENV=false
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
+    ports:
+      - 8080:8080
+
+  api-app:
+    image: roshan/film-trailer:latest
+    container_name: api-app
+    restart: always
+    environment:
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
+    ports:
+      - 3000:3000
+  redis:
+    image: redis:4.0
+    restart: always
+    ports:
+      - 6379:6379
