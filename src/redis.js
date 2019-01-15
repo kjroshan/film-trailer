@@ -5,9 +5,10 @@ import createDevCache from './devcache';
 Promise.promisifyAll(redis.RedisClient.prototype);
 Promise.promisifyAll(redis.Multi.prototype);
 
-const REDIS_HOST = process.env.REDIS_HOST || '127.0.0.1';
-const REDIS_PORT = process.env.REDIS_PORT || '6379';
-const REDIS_PASSWORD = process.env.REDIS_PASSWORD || '';
+const _env = process.env;
+const REDIS_HOST = _env.REDIS_HOST || 'localhost';
+const REDIS_PORT = _env.REDIS_PORT || '6379';
+const REDIS_PASSWORD = _env.REDIS_PASSWORD || '';
 
 
 function initializeRedis(logger) {
