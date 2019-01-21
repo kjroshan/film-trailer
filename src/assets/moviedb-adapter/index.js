@@ -60,6 +60,34 @@ class MovieDbAdapter {
         }
         return videoKey;
     }
+
+    async getVideoClips(imdbId) {
+        let trailers = await this.redisClient.getAsync(`IMDBTRAILERS_FOR_MOVIE_${imdbId}`)
+            .catch(() => {
+                this.logger.log('info', `Redis could not find the value in cache for the key: IMDBTRAILERS_FOR_MOVIE_${imdbId}`);
+            });
+
+        if (trailers) {
+            this.logger.log('info', `The videoKey provided from redis cache - ${trailers}`);
+            return trailers;
+        }
+
+        const movieDbUrl = `https://api.themoviedb.org/3/movie/${imdbId}?api_key=${this.imdbKey}&append_to_response=videos`;
+
+        const response = await this.getMovieInfo(movieDbUrl)
+            .catch(() => {
+                this.logger.log('error', 'Error while getting trailers');
+                throw new Error('Error while getting trailers');
+            });
+
+        trailers = response.body;
+
+        if (trailers) {
+            this.redisClient.setAsync(`IMDBTRAILERS_FOR_MOVIE_${imdbId}`, trailers);
+        }
+
+        return trailers;
+    }
 }
 
 export default function create(params) {

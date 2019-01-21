@@ -6,7 +6,8 @@ services:
     restart: always
     environment:
       - REDIS_ENV=false
-      - TRAILER_API_HOST=apiapp
+      - TRAILER_API_HOST=http://apiapp
+      - TRAILER_API_PORT=3000
       - NODE_TLS_REJECT_UNAUTHORIZED=0
     ports:
       - 8080:8080
